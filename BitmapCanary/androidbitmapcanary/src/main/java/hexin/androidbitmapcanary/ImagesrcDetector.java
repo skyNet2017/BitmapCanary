@@ -25,6 +25,7 @@ public class ImagesrcDetector extends Detector<ImageView>{
         }
         if(srcDrawable instanceof BitmapDrawable){
             Bitmap bitmap = ((BitmapDrawable) srcDrawable).getBitmap();
+            BitmapListUtil.add(bitmap);
             if(bitmap.getHeight()>imageView.getHeight()*MAX_SCALE
                     ||bitmap.getWidth()>imageView.getWidth()*MAX_SCALE){
                 markScaleView(bitmap,imageView);

@@ -26,6 +26,7 @@ public class BackgroundDetecotor extends Detector<View> {
         }
         if(backGroupDrawable!=null&&backGroupDrawable instanceof BitmapDrawable){
             Bitmap bitmap = ((BitmapDrawable) backGroupDrawable).getBitmap();
+            BitmapListUtil.add(bitmap);
             if(bitmap.getHeight()>view.getHeight()*MAX_SCALE
                     ||bitmap.getWidth()>view.getWidth()*MAX_SCALE){
                 markScaleView(bitmap,view);

@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
+import hexin.androidbitmapcanary.BitmapListUtil;
+
 public class DemoActivity extends Activity {
 
     @Override
@@ -17,5 +19,9 @@ public class DemoActivity extends Activity {
                 startActivity(new Intent(DemoActivity.this,DemoActivity2.class));
             }
         });
+    }
+
+    public void showBitmapList(View view) {
+        BitmapListUtil.start(this);
     }
 }
