@@ -5,6 +5,7 @@ import android.graphics.Color;
 import android.os.Build;
 import android.view.View;
 import android.view.ViewOverlay;
+import android.widget.ImageView;
 
 import static hexin.androidbitmapcanary.DrawableDetectUtil.getTipColorByScale;
 
@@ -32,6 +33,15 @@ public abstract class Detector<T extends View> {
             overlay.add(detectDrawable);
         }else {
             view.setBackgroundColor(getTipColorByScale(scale));
+        }
+    }
+
+    protected void clearMark(ImageView view) {
+        if(Build.VERSION.SDK_INT>=18) {
+            ViewOverlay overlay = view.getOverlay();
+            overlay.clear();
+        }else {
+            view.setBackgroundColor(Color.WHITE);
         }
     }
 

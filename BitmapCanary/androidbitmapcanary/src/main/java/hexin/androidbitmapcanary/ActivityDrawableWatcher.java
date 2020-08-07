@@ -35,6 +35,9 @@ public class ActivityDrawableWatcher {
             new Application.ActivityLifecycleCallbacks() {
                 @Override
                 public void onActivityCreated(Activity activity, Bundle bundle) {
+                    if(activity instanceof ImgMemoryActivity){
+                        return;
+                    }
                     View decorView = activity.getWindow().getDecorView();
                     ViewTreeObserver viewTreeObserver = decorView.getViewTreeObserver();
                     DrawableDetectListener drawableDetectListener = new DrawableDetectListener(decorView);

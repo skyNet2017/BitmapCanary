@@ -29,7 +29,11 @@ public class ImagesrcDetector extends Detector<ImageView>{
             if(bitmap.getHeight()>imageView.getHeight()*MAX_SCALE
                     ||bitmap.getWidth()>imageView.getWidth()*MAX_SCALE){
                 markScaleView(bitmap,imageView);
+            }else {
+                clearMark(imageView);
             }
         }
     }
+
+
 }
