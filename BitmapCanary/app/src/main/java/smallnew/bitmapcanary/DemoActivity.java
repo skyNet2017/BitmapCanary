@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
+import com.facebook.drawee.view.SimpleDraweeView;
+
 import hexin.androidbitmapcanary.BitmapListUtil;
 
 public class DemoActivity extends Activity {
@@ -19,6 +21,9 @@ public class DemoActivity extends Activity {
                 startActivity(new Intent(DemoActivity.this,DemoActivity2.class));
             }
         });
+
+       SimpleDraweeView view =  findViewById(R.id.my_image_view);
+       view.setImageResource(R.drawable.printlogo);
     }
 
     public void showBitmapList(View view) {

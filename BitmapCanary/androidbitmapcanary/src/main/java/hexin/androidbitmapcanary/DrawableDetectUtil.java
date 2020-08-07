@@ -19,6 +19,8 @@ import android.view.ViewGroup;
 import android.view.ViewOverlay;
 import android.widget.ImageView;
 
+import com.facebook.drawee.view.DraweeView;
+
 public class DrawableDetectUtil{
 
     public static float MAX_SCALE = 1.5f;
@@ -39,12 +41,15 @@ public class DrawableDetectUtil{
         Detector detectorBackground = DetectorFactory.getDetector(DetectorFactory.DETECT_TYPE_BACKGROUND);
         detectorBackground.detect(view);
 
-        if(view instanceof ImageView){
+        if(view instanceof DraweeView){
+            DraweeView draweeView = (DraweeView) view;
+            Detector detectorImageSrc = DetectorFactory.getDetector(DetectorFactory.DETECT_TYPE_FRESCO);
+            detectorImageSrc.detect(draweeView);
+        }else if(view instanceof ImageView){
             ImageView imageView = (ImageView)view;
             Detector detectorImageSrc = DetectorFactory.getDetector(DetectorFactory.DETECT_TYPE_IMAGESRC);
             detectorImageSrc.detect(imageView);
-        }
-        if(view instanceof ViewGroup&&((ViewGroup) view).getChildCount()>0){
+        } else if(view instanceof ViewGroup&&((ViewGroup) view).getChildCount()>0){
             ViewGroup viewGroup = (ViewGroup)view;
             for(int i=0;i<viewGroup.getChildCount();i++){
                 View childView = viewGroup.getChildAt(i);
@@ -53,6 +58,7 @@ public class DrawableDetectUtil{
         }
 
     }
+
 
     static public int getTipColorByScale(float scale){
         if(scale>MAX_SCALE&&scale<MAX_SCALE_2){

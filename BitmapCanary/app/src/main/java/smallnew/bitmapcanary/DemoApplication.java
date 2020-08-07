@@ -2,6 +2,9 @@ package smallnew.bitmapcanary;
 
 import android.app.Application;
 
+import com.facebook.drawee.backends.pipeline.Fresco;
+import com.facebook.imagepipeline.core.ImagePipelineConfig;
+
 import hexin.androidbitmapcanary.ActivityDrawableWatcher;
 
 /**
@@ -13,5 +16,6 @@ public class DemoApplication extends Application {
     public void onCreate() {
         super.onCreate();
         ActivityDrawableWatcher.watchDrawable(this);
+        Fresco.initialize(this);
     }
 }

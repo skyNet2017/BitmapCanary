@@ -11,6 +11,7 @@ public class DetectorFactory {
 
     public static final int DETECT_TYPE_BACKGROUND = 1;
     public static final int DETECT_TYPE_IMAGESRC = 2;
+    public static final int DETECT_TYPE_FRESCO = 3;
     private static HashMap<Integer,Detector> detectorCache = new HashMap<>();
 
     public static Detector getDetector(int detectType){
@@ -26,6 +27,8 @@ public class DetectorFactory {
             return new BackgroundDetecotor();
         }else if(DETECT_TYPE_IMAGESRC == detectType){
             return new ImagesrcDetector();
+        }else if(DETECT_TYPE_FRESCO == detectType){
+            return new DraweeViewDetector();
         }else {//todo checkbox detector、progress detecor ... adding furtue
             throw new IllegalArgumentException("detectType not support "+detectType);
         }
