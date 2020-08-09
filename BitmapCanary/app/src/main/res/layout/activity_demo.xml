@@ -41,5 +41,16 @@
         android:layout_width="50dp"
         android:layout_height="50dp"
         />
+    <com.facebook.drawee.view.SimpleDraweeView
+        android:id="@+id/fresco_noresize"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        />
+    <com.facebook.drawee.view.SimpleDraweeView
+        android:id="@+id/fresco_res"
+        app:failureImage="@drawable/ic_launcher_background"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        />
 
 </LinearLayout>
