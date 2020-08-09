@@ -45,11 +45,6 @@ import static hexin.androidbitmapcanary.DrawableDetectUtil.MAX_SCALE;
 public class DraweeViewDetector extends Detector<DraweeView> {
     @Override
     public void detect(DraweeView imageView) {
-        try {
-
-        }catch (Throwable throwable){
-            throwable.printStackTrace();
-        }
         Drawable srcDrawable = imageView.getTopLevelDrawable();
         DraweeHierarchy hierarchy = imageView.getHierarchy();
 
@@ -96,14 +91,9 @@ public class DraweeViewDetector extends Detector<DraweeView> {
             } catch (Exception e) {
                 e.printStackTrace();
             }
+        }else {
+            detectDrawable(srcDrawable,imageView);
         }
-        Log.e("dd","DraweeView2:"+srcDrawable.toString());
-
-        Log.e("dd","getController:"+ imageView.getController());
-        Log.e("dd","getController:"+ imageView.getHierarchy());
-
-        detectDrawable(srcDrawable,imageView);
-
     }
 
     private void detectDrawable(Drawable srcDrawable, DraweeView imageView) {
