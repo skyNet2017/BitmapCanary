@@ -4,6 +4,7 @@ import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.StateListDrawable;
+import android.util.Log;
 import android.view.View;
 
 import static hexin.androidbitmapcanary.DrawableDetectUtil.MAX_SCALE;
@@ -24,6 +25,7 @@ public class BackgroundDetecotor extends Detector<View> {
         if(backGroupDrawable instanceof StateListDrawable){
             backGroupDrawable = backGroupDrawable.getCurrent();
         }
+        Log.e("dd", "detectDrawable:" + backGroupDrawable);
         if(backGroupDrawable!=null&&backGroupDrawable instanceof BitmapDrawable){
             Bitmap bitmap = ((BitmapDrawable) backGroupDrawable).getBitmap();
             BitmapListUtil.add(bitmap);

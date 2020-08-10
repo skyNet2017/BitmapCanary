@@ -4,6 +4,7 @@ import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.StateListDrawable;
+import android.util.Log;
 import android.widget.ImageView;
 
 import static hexin.androidbitmapcanary.DrawableDetectUtil.MAX_SCALE;
@@ -20,9 +21,11 @@ public class ImagesrcDetector extends Detector<ImageView>{
     @Override
     public void detect(ImageView imageView) {
         Drawable srcDrawable = imageView.getDrawable();
+
         if(srcDrawable instanceof StateListDrawable){
             srcDrawable = srcDrawable.getCurrent();
         }
+        Log.e("dd", "detectDrawable:" + srcDrawable.toString());
         if(srcDrawable instanceof BitmapDrawable){
             Bitmap bitmap = ((BitmapDrawable) srcDrawable).getBitmap();
             BitmapListUtil.add(bitmap);
