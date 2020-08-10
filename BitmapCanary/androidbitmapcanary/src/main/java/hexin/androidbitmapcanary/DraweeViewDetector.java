@@ -6,6 +6,7 @@ import android.graphics.drawable.Drawable;
 import android.graphics.drawable.StateListDrawable;
 import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
 import android.util.Log;
+import android.widget.ImageView;
 
 import com.facebook.drawee.drawable.FadeDrawable;
 import com.facebook.drawee.drawable.ForwardingDrawable;
@@ -73,6 +74,7 @@ public class DraweeViewDetector extends Detector<DraweeView> {
                         }
                         Log.e("dd","arr["+i+"]"+drawable.toString());
                         Drawable drawable0 = unWrap(drawable);
+                        detectDrawable(drawable0,imageView);
 
                     }
                 }
@@ -96,43 +98,20 @@ public class DraweeViewDetector extends Detector<DraweeView> {
     }
 
     private void detectDrawable(Drawable srcDrawable, DraweeView imageView) {
-        Log.e("dd","detectDrawable:"+srcDrawable.toString());
+        Log.e("dd","detectDrawable:"+srcDrawable);
         try {
-            if(srcDrawable instanceof BitmapDrawable){
-                Bitmap bitmap = ((BitmapDrawable) srcDrawable).getBitmap();
-                handleBitmap(bitmap,imageView);
-
-            }else if(srcDrawable instanceof RoundedBitmapDrawable){
+            if(srcDrawable instanceof RoundedBitmapDrawable){
                 RoundedBitmapDrawable drawable = (RoundedBitmapDrawable) srcDrawable;
                 Field field = RoundedBitmapDrawable.class.getDeclaredField("mBitmap");
                 field.setAccessible(true);
                 Bitmap bitmap = (Bitmap) field.get(drawable);
-                if(bitmap != null){
-                    handleBitmap(bitmap,imageView);
-                }
-            }else if(srcDrawable instanceof com.facebook.drawee.drawable.RoundedBitmapDrawable){
-                com.facebook.drawee.drawable.RoundedBitmapDrawable drawable = (com.facebook.drawee.drawable.RoundedBitmapDrawable) srcDrawable;
-                Field field = RoundedBitmapDrawable.class.getDeclaredField("mBitmap");
-                field.setAccessible(true);
-                Bitmap bitmap = (Bitmap) field.get(drawable);
-                if(bitmap != null){
-                    handleBitmap(bitmap,imageView);
-                }
+                handleBitmap(bitmap,imageView);
+            }else {
+                Bitmap bitmap = DrawableUnWrapBitmapUtil.unwrap(srcDrawable);
+                handleBitmap(bitmap,imageView);
             }
         }catch (Throwable throwable){
             throwable.printStackTrace();
-        }
-
-
-    }
-
-    private void handleBitmap(Bitmap bitmap,DraweeView imageView) {
-        BitmapListUtil.add(bitmap);
-        if(bitmap.getHeight()>imageView.getHeight()*MAX_SCALE
-                ||bitmap.getWidth()>imageView.getWidth()*MAX_SCALE){
-            markScaleView(bitmap,imageView);
-        }else {
-            clearMark(imageView);
         }
     }
 }

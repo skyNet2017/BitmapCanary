@@ -25,17 +25,9 @@ public class ImagesrcDetector extends Detector<ImageView>{
         if(srcDrawable instanceof StateListDrawable){
             srcDrawable = srcDrawable.getCurrent();
         }
-        Log.e("dd", "detectDrawable:" + srcDrawable.toString());
-        if(srcDrawable instanceof BitmapDrawable){
-            Bitmap bitmap = ((BitmapDrawable) srcDrawable).getBitmap();
-            BitmapListUtil.add(bitmap);
-            if(bitmap.getHeight()>imageView.getHeight()*MAX_SCALE
-                    ||bitmap.getWidth()>imageView.getWidth()*MAX_SCALE){
-                markScaleView(bitmap,imageView);
-            }else {
-                clearMark(imageView);
-            }
-        }
+        Log.e("dd", "detectDrawable:" + srcDrawable);
+        Bitmap bitmap = DrawableUnWrapBitmapUtil.unwrap(srcDrawable);
+        handleBitmap(bitmap,imageView);
     }
 
 

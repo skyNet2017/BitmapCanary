@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewOverlay;
 import android.widget.ImageView;
 
+import static hexin.androidbitmapcanary.DrawableDetectUtil.MAX_SCALE;
 import static hexin.androidbitmapcanary.DrawableDetectUtil.getTipColorByScale;
 
 /**
@@ -21,7 +22,7 @@ public abstract class Detector<T extends View> {
 
     abstract public void detect(T view);
 
-    protected void markScaleView(Bitmap bitmap, T view){
+    private void markScaleView(Bitmap bitmap, T view){
         float scale = Math.max(bitmap.getHeight()*1.0f/view.getHeight(),bitmap.getWidth()*1.0f/view.getWidth());
         if(Build.VERSION.SDK_INT>=18){
             ViewOverlay overlay = view.getOverlay();
@@ -36,7 +37,23 @@ public abstract class Detector<T extends View> {
         }
     }
 
-    protected void clearMark(ImageView view) {
+
+
+    protected void handleBitmap(Bitmap bitmap, T imageView) {
+        if(bitmap == null){
+            clearMark(imageView);
+            return;
+        }
+        BitmapListUtil.add(bitmap);
+        if(bitmap.getHeight()>imageView.getHeight()*MAX_SCALE
+                ||bitmap.getWidth()>imageView.getWidth()*MAX_SCALE){
+            markScaleView(bitmap,imageView);
+        }else {
+            clearMark(imageView);
+        }
+    }
+
+    protected void clearMark(T view) {
         if(Build.VERSION.SDK_INT>=18) {
             ViewOverlay overlay = view.getOverlay();
             overlay.clear();

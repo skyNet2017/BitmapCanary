@@ -25,14 +25,8 @@ public class BackgroundDetecotor extends Detector<View> {
         if(backGroupDrawable instanceof StateListDrawable){
             backGroupDrawable = backGroupDrawable.getCurrent();
         }
-        Log.e("dd", "detectDrawable:" + backGroupDrawable);
-        if(backGroupDrawable!=null&&backGroupDrawable instanceof BitmapDrawable){
-            Bitmap bitmap = ((BitmapDrawable) backGroupDrawable).getBitmap();
-            BitmapListUtil.add(bitmap);
-            if(bitmap.getHeight()>view.getHeight()*MAX_SCALE
-                    ||bitmap.getWidth()>view.getWidth()*MAX_SCALE){
-                markScaleView(bitmap,view);
-            }
-        }
+        Log.e("dd", "detectDrawable(background):" + backGroupDrawable);
+        Bitmap bitmap = DrawableUnWrapBitmapUtil.unwrap(backGroupDrawable);
+        handleBitmap(bitmap,view);
     }
 }
