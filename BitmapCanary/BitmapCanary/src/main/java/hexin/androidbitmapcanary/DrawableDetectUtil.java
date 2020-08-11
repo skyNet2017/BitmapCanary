@@ -17,11 +17,21 @@ import android.widget.ImageView;
 
 import com.facebook.drawee.view.DraweeView;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class DrawableDetectUtil{
 
     public static float MAX_SCALE = 1.5f;
     public static float MAX_SCALE_2 = 2f;
     public static float MAX_SCALE_3 = 3f;
+
+    public static List<UnwrapBitmapFromView> unWraps;
+
+    static {
+        unWraps = new ArrayList<>();
+        unWraps.add(new ImageViewUnWrapper());
+    }
 
     public static void detectDrawableSize(ViewGroup rootView){
         if(rootView==null||rootView.getChildCount()==0){

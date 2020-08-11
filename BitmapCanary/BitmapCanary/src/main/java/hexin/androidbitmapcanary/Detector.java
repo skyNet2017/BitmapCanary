@@ -47,8 +47,6 @@ public abstract class Detector<T extends View> {
             return;
         }
         BitmapListUtil.add(bitmap);
-
-        markScaleView(bitmap,imageView);
         if(bitmap.getHeight()>imageView.getHeight()*MAX_SCALE
                 ||bitmap.getWidth()>imageView.getWidth()*MAX_SCALE){
             markScaleView(bitmap,imageView);

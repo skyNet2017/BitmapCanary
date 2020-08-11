@@ -1,20 +1,26 @@
 package hexin.androidbitmapcanary;
 
 import android.graphics.Bitmap;
+import android.graphics.drawable.Animatable;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.StateListDrawable;
-import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
+
 import android.util.Log;
 import android.widget.ImageView;
 
+import com.facebook.drawee.backends.pipeline.PipelineDraweeController;
+import com.facebook.drawee.controller.ControllerListener;
 import com.facebook.drawee.drawable.FadeDrawable;
 import com.facebook.drawee.drawable.ForwardingDrawable;
 
+import com.facebook.drawee.drawable.RoundedBitmapDrawable;
 import com.facebook.drawee.drawable.ScaleTypeDrawable;
 import com.facebook.drawee.generic.RootDrawable;
+import com.facebook.drawee.interfaces.DraweeController;
 import com.facebook.drawee.interfaces.DraweeHierarchy;
 import com.facebook.drawee.view.DraweeView;
+import com.facebook.imagepipeline.image.ImageInfo;
 
 import java.lang.reflect.Field;
 
@@ -47,12 +53,50 @@ import static hexin.androidbitmapcanary.DrawableDetectUtil.MAX_SCALE;
  */
 public class DraweeViewDetector extends Detector<DraweeView> {
     @Override
-    public void detect(DraweeView imageView) {
+    public void detect(final DraweeView imageView) {
         Drawable srcDrawable = imageView.getTopLevelDrawable();
         DraweeHierarchy hierarchy = imageView.getHierarchy();
+        DraweeController controller = imageView.getController();
+        if(controller  instanceof PipelineDraweeController){
+            PipelineDraweeController controller1 = (PipelineDraweeController) controller;
+            controller1.addControllerListener(new ControllerListener<ImageInfo>() {
+                @Override
+                public void onSubmit(String id, Object callerContext) {
+
+                }
+
+                @Override
+                public void onFinalImageSet(String id, ImageInfo imageInfo, Animatable animatable) {
+                    Log.e("dd","onIntermediateImageSet:"+imageInfo.getWidth()+"x"+imageInfo.getHeight()+",q:"+imageInfo.getQualityInfo());
+                    detect(imageView);
+                }
+
+                @Override
+                public void onIntermediateImageSet(String id, ImageInfo imageInfo) {
+
+                }
+
+                @Override
+                public void onIntermediateImageFailed(String id, Throwable throwable) {
+
+                }
+
+                @Override
+                public void onFailure(String id, Throwable throwable) {
+
+                }
+
+                @Override
+                public void onRelease(String id) {
+
+                }
+            });
+        }
 
 
         Log.e("dd","DraweeView:"+srcDrawable.toString());
+        Log.e("dd","hierarchy:"+hierarchy);
+        Log.e("dd","controller:"+controller);
         if(srcDrawable instanceof StateListDrawable){
             srcDrawable = srcDrawable.getCurrent();
         }
@@ -105,6 +149,7 @@ public class DraweeViewDetector extends Detector<DraweeView> {
                 Field field = RoundedBitmapDrawable.class.getDeclaredField("mBitmap");
                 field.setAccessible(true);
                 Bitmap bitmap = (Bitmap) field.get(drawable);
+                Log.e("dd","bitmap:"+bitmap);
                 handleBitmap(bitmap,imageView);
             }else {
                 Bitmap bitmap = DrawableUnWrapBitmapUtil.unwrap(srcDrawable);
