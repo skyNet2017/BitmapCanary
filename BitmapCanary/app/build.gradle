@@ -16,10 +16,16 @@ android {
         }
     }
 }
+repositories {
+    flatDir {
+        dirs 'libs'
+    }
+}
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation 'com.android.support.constraint:constraint-layout:1.1.0'
-    implementation project(':androidbitmapcanary')
+    implementation project(':BitmapCanary')
     implementation 'me.weishu:epic:0.8.1-c'
+
 }

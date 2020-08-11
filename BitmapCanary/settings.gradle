@@ -1,1 +1,1 @@
-include ':app', ':androidbitmapcanary'
+include ':app', ':BitmapCanary'

@@ -70,4 +70,8 @@ public class DemoActivity extends Activity {
     public void showBitmapList(View view) {
         BitmapListUtil.start(this);
     }
+
+    public void goRn(View view) {
+
+    }
 }

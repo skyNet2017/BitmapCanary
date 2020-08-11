@@ -26,7 +26,7 @@ public class DemoApplication extends Application {
         Fresco.initialize(this,ImagePipelineConfig.newBuilder(this)
                 .setDownsampleEnabled(true)
                 .build());
-        hook();
+        //hook();
     }
 
     private void hook() {
