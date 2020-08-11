@@ -55,7 +55,7 @@ public abstract class Detector<T extends View> {
         }
     }
 
-    protected void clearMark(T view) {
+    private void clearMark(T view) {
         if(Build.VERSION.SDK_INT>=18) {
             ViewOverlay overlay = view.getOverlay();
             overlay.clear();

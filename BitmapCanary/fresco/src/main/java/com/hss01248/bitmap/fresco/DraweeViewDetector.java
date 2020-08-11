@@ -1,4 +1,4 @@
-package hexin.androidbitmapcanary;
+package com.hss01248.bitmap.fresco;
 
 import android.graphics.Bitmap;
 import android.graphics.drawable.Animatable;
@@ -23,6 +23,9 @@ import com.facebook.drawee.view.DraweeView;
 import com.facebook.imagepipeline.image.ImageInfo;
 
 import java.lang.reflect.Field;
+
+import hexin.androidbitmapcanary.Detector;
+import hexin.androidbitmapcanary.DrawableUnWrapBitmapUtil;
 
 import static hexin.androidbitmapcanary.DrawableDetectUtil.MAX_SCALE;
 

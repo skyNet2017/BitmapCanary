@@ -15,9 +15,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
-import com.facebook.drawee.view.DraweeView;
 
-import java.util.ArrayList;
+import java.lang.reflect.ParameterizedType;
+
 import java.util.List;
 
 public class DrawableDetectUtil{
@@ -26,12 +26,7 @@ public class DrawableDetectUtil{
     public static float MAX_SCALE_2 = 2f;
     public static float MAX_SCALE_3 = 3f;
 
-    public static List<UnwrapBitmapFromView> unWraps;
 
-    static {
-        unWraps = new ArrayList<>();
-        unWraps.add(new ImageViewUnWrapper());
-    }
 
     public static void detectDrawableSize(ViewGroup rootView){
         if(rootView==null||rootView.getChildCount()==0){
@@ -47,7 +42,22 @@ public class DrawableDetectUtil{
         Detector detectorBackground = DetectorFactory.getDetector(DetectorFactory.DETECT_TYPE_BACKGROUND);
         detectorBackground.detect(view);
 
-        if(view instanceof DraweeView){
+
+
+        List<Detector> detectors = DetectorFactory.detectors;
+        if(!detectors .isEmpty()){
+            for (int i = 0; i < detectors.size(); i++) {
+                Detector detector = detectors.get(i);
+                Class clazz = getClass(detector,0);
+                if(clazz != null  && clazz.isInstance(view)){
+                    detector.detect(view);
+                    break;
+                }
+            }
+        }
+
+
+        /*if(view instanceof DraweeView){
             DraweeView draweeView = (DraweeView) view;
             Detector detectorImageSrc = DetectorFactory.getDetector(DetectorFactory.DETECT_TYPE_FRESCO);
             detectorImageSrc.detect(draweeView);
@@ -55,7 +65,8 @@ public class DrawableDetectUtil{
             ImageView imageView = (ImageView)view;
             Detector detectorImageSrc = DetectorFactory.getDetector(DetectorFactory.DETECT_TYPE_IMAGESRC);
             detectorImageSrc.detect(imageView);
-        } else if(view instanceof ViewGroup&&((ViewGroup) view).getChildCount()>0){
+        }else */
+        if(view instanceof ViewGroup&&((ViewGroup) view).getChildCount()>0){
             ViewGroup viewGroup = (ViewGroup)view;
             for(int i=0;i<viewGroup.getChildCount();i++){
                 View childView = viewGroup.getChildAt(i);
@@ -63,6 +74,26 @@ public class DrawableDetectUtil{
             }
         }
 
+    }
+
+    /**
+     * 获取子类上第n个泛型的类型
+     * @param obj
+     * @param idx
+     * @param <T>
+     * @return
+     */
+    public static <T> Class<T> getClass(Object obj,int idx){
+        if(obj!=null){
+            try {
+                return ((Class<T>) ((ParameterizedType) (obj.getClass()
+                        .getGenericSuperclass())).getActualTypeArguments()[idx]);
+            } catch (Throwable e) {
+                e.printStackTrace();
+            }
+
+        }
+        return null;
     }
 
 
