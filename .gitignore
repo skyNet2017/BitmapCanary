@@ -60,7 +60,6 @@ gh-pages
 /.idea/libraries
 /build
 /captures
-.idea
 
 # IDEA
 *.iml
@@ -68,7 +67,7 @@ gh-pages
 *.iws
 out
 .idea
-/.idea
+.idea/
 
 # Maven
 release.properties
@@ -81,4 +80,3 @@ gradle/
 doc/keystore/
 */.externalNativeBuild
 *.hprof
-local.properties

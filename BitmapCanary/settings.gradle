@@ -1,2 +1,0 @@
-include ':fresco'
-include ':app', ':BitmapCanary'
