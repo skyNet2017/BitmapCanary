@@ -46,7 +46,7 @@ public class DrawableUnWrapBitmapUtil {
                 Bitmap bitmap = (Bitmap) declaredField1.get(ninePatch);
                 return bitmap;
             }catch (Throwable throwable){
-                throwable.printStackTrace();
+                //throwable.printStackTrace();
                 return null;
             }
         }

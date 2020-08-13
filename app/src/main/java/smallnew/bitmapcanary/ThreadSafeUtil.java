@@ -48,7 +48,7 @@ public class ThreadSafeUtil {
 
         @Override
         public void uncaughtException(Thread t, Throwable e) {
-            BitmapCanaryUtil.e(TAG,"thread crash:"+t.getName());
+           Log.e(TAG,"thread crash:"+t.getName());
             e.printStackTrace();
         }
     }
