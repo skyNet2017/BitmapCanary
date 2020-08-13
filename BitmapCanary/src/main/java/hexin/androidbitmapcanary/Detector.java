@@ -63,7 +63,7 @@ public abstract class Detector<T extends View> {
             ViewOverlay overlay = view.getOverlay();
             overlay.clear();
         }else {
-            view.setBackgroundColor(Color.WHITE);
+            //view.setBackgroundColor(Color.WHITE);
         }
     }
 
