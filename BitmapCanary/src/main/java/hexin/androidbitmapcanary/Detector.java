@@ -43,7 +43,10 @@ public abstract class Detector<T extends View> {
 
     protected void handleBitmap(Bitmap bitmap, T imageView) {
         if(bitmap == null){
-            clearMark(imageView);
+            if(Build.VERSION.SDK_INT>=18) {
+                ViewOverlay overlay = imageView.getOverlay();
+                overlay.clear();
+            }
             return;
         }
         BitmapListUtil.add(bitmap);
