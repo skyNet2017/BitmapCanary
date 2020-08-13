@@ -24,6 +24,7 @@ import com.facebook.imagepipeline.image.ImageInfo;
 
 import java.lang.reflect.Field;
 
+import hexin.androidbitmapcanary.BitmapCanaryUtil;
 import hexin.androidbitmapcanary.Detector;
 import hexin.androidbitmapcanary.DrawableUnWrapBitmapUtil;
 
@@ -70,7 +71,7 @@ public class DraweeViewDetector extends Detector<DraweeView> {
 
                 @Override
                 public void onFinalImageSet(String id, ImageInfo imageInfo, Animatable animatable) {
-                    Log.e("dd","onIntermediateImageSet:"+imageInfo.getWidth()+"x"+imageInfo.getHeight()+",q:"+imageInfo.getQualityInfo());
+                    BitmapCanaryUtil.e("dd","onIntermediateImageSet:"+imageInfo.getWidth()+"x"+imageInfo.getHeight()+",q:"+imageInfo.getQualityInfo());
                     detect(imageView);
                 }
 
@@ -97,9 +98,9 @@ public class DraweeViewDetector extends Detector<DraweeView> {
         }
 
 
-        Log.e("dd","DraweeView:"+srcDrawable.toString());
-        Log.e("dd","hierarchy:"+hierarchy);
-        Log.e("dd","controller:"+controller);
+        BitmapCanaryUtil.e("dd","DraweeView:"+srcDrawable.toString());
+        BitmapCanaryUtil.e("dd","hierarchy:"+hierarchy);
+        BitmapCanaryUtil.e("dd","controller:"+controller);
         if(srcDrawable instanceof StateListDrawable){
             srcDrawable = srcDrawable.getCurrent();
         }
@@ -119,7 +120,7 @@ public class DraweeViewDetector extends Detector<DraweeView> {
                         if(drawable == null){
                             continue;
                         }
-                        Log.e("dd","arr["+i+"]"+drawable.toString());
+                        BitmapCanaryUtil.e("dd","arr["+i+"]"+drawable.toString());
                         Drawable drawable0 = unWrap(drawable);
                         detectDrawable(drawable0,imageView);
 
@@ -145,14 +146,14 @@ public class DraweeViewDetector extends Detector<DraweeView> {
     }
 
     private void detectDrawable(Drawable srcDrawable, DraweeView imageView) {
-        Log.e("dd","detectDrawable:"+srcDrawable);
+        BitmapCanaryUtil.e("dd","detectDrawable:"+srcDrawable);
         try {
             if(srcDrawable instanceof RoundedBitmapDrawable){
                 RoundedBitmapDrawable drawable = (RoundedBitmapDrawable) srcDrawable;
                 Field field = RoundedBitmapDrawable.class.getDeclaredField("mBitmap");
                 field.setAccessible(true);
                 Bitmap bitmap = (Bitmap) field.get(drawable);
-                Log.e("dd","bitmap:"+bitmap);
+                BitmapCanaryUtil.e("dd","bitmap:"+bitmap);
                 handleBitmap(bitmap,imageView);
             }else {
                 Bitmap bitmap = DrawableUnWrapBitmapUtil.unwrap(srcDrawable);

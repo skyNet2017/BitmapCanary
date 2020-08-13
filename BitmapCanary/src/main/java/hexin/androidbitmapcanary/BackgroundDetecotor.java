@@ -25,7 +25,7 @@ public class BackgroundDetecotor extends Detector<View> {
         if(backGroupDrawable instanceof StateListDrawable){
             backGroupDrawable = backGroupDrawable.getCurrent();
         }
-        //Log.e("dd", "detectDrawable(background):" + backGroupDrawable);
+        //BitmapCanaryUtil.e("dd", "detectDrawable(background):" + backGroupDrawable);
         Bitmap bitmap = DrawableUnWrapBitmapUtil.unwrap(backGroupDrawable);
         handleBitmap(bitmap,view);
     }

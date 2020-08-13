@@ -25,7 +25,7 @@ public class ImagesrcDetector extends Detector<ImageView>{
         if(srcDrawable instanceof StateListDrawable){
             srcDrawable = srcDrawable.getCurrent();
         }
-        Log.e("dd", "detectDrawable:" + srcDrawable);
+        BitmapCanaryUtil.e("dd", "detectDrawable:" + srcDrawable);
         Bitmap bitmap = DrawableUnWrapBitmapUtil.unwrap(srcDrawable);
         handleBitmap(bitmap,imageView);
     }

@@ -22,13 +22,13 @@ public class BitmapListUtil {
     }
 
     public static void add(Bitmap bitmap){
-        Log.w("BitmapList","add:"+bitmap.hashCode()+","+getInfo(bitmap));
+        BitmapCanaryUtil.w("BitmapList","add:"+bitmap.hashCode()+","+getInfo(bitmap));
         map.put(bitmap.hashCode(),new WeakReference<Bitmap>(bitmap));
     }
 
     public static List<Bitmap> getList(){
         List<Bitmap> bitmaps = new ArrayList<>();
-        Log.w("BitmapList","size:"+map.size());
+        BitmapCanaryUtil.w("BitmapList","size:"+map.size());
         for (Map.Entry<Integer, WeakReference<Bitmap>> entry : map.entrySet()) {
             WeakReference<Bitmap> weakReference = entry.getValue();
             if(weakReference != null && weakReference.get() != null && !weakReference.get().isRecycled()){

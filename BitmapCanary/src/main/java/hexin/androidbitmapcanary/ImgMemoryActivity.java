@@ -44,7 +44,7 @@ public class ImgMemoryActivity extends Activity {
         List<Bitmap> bitmaps = BitmapListUtil.getList();
         setImgsInfo(bitmaps);
         /*if(bitmaps == null || bitmaps.isEmpty()){
-            Log.w("ImgMemoryActivity","BitmapListUtil.getList().isEmpty");
+            BitmapCanaryUtil.w("ImgMemoryActivity","BitmapListUtil.getList().isEmpty");
             Toast.makeText(getApplicationContext(),"BitmapListUtil.getList().isEmpty",Toast.LENGTH_SHORT).show();
             finish();
             return;
