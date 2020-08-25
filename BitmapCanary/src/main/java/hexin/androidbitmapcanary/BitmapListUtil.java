@@ -79,7 +79,7 @@ public class BitmapListUtil {
         StringBuilder builder = new StringBuilder();
         builder.append(bitmap.getWidth()).append("x").append(bitmap.getHeight())
                 .append(",内存占用:").append(formatFileSize(getSize(bitmap))).append(",config:")
-                .append(bitmap.getConfig().name());
+                .append(bitmap.getConfig().name()).append("\n").append(bitmap);
 
         return builder.toString();
     }

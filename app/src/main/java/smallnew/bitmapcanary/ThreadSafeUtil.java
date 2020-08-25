@@ -26,9 +26,8 @@ public class ThreadSafeUtil {
                 Class<?> clazz = thread.getClass();
                 if (clazz != Thread.class) {
                     Log.d(TAG, "found class extend Thread:" + clazz);
-                    //DexposedBridge.findAndHookMethod(clazz, "run", new ThreadMethodHook());
+                    DexposedBridge.findAndHookMethod(clazz, "start", new ThreadStartMethodHook());
                 }
-                DexposedBridge.findAndHookMethod(clazz, "start", new ThreadStartMethodHook());
                 Log.d(TAG, "Thread: " + thread.getName() + " class:" + thread.getClass() +  " is created.");
             }
         });

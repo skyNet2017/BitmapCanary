@@ -49,7 +49,7 @@ public abstract class Detector<T extends View> {
             }
             return;
         }
-        BitmapListUtil.add(bitmap);
+        //BitmapListUtil.add(bitmap);
         if(bitmap.getHeight()>imageView.getHeight()*MAX_SCALE
                 ||bitmap.getWidth()>imageView.getWidth()*MAX_SCALE){
             markScaleView(bitmap,imageView);

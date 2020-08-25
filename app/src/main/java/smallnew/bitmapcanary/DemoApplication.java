@@ -13,6 +13,7 @@ import com.hss01248.bitmap.fresco.DraweeViewDetector;
 import de.robv.android.xposed.DexposedBridge;
 import de.robv.android.xposed.XC_MethodHook;
 import hexin.androidbitmapcanary.ActivityDrawableWatcher;
+import hexin.androidbitmapcanary.BitmapListUtil;
 import hexin.androidbitmapcanary.DetectorFactory;
 
 import static de.robv.android.xposed.XposedBridge.TAG;
@@ -25,7 +26,8 @@ public class DemoApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        ThreadSafeUtil.hookThread();
+        //ThreadSafeUtil.hookThread();
+        BitmapHook.hookThread();
         DetectorFactory.addDetect(new DraweeViewDetector());
         ActivityDrawableWatcher.watchDrawable(this);
         Fresco.initialize(this,ImagePipelineConfig.newBuilder(this)
