@@ -48,19 +48,16 @@ public class BitmapHook {
                 @Override
                 protected void afterHookedMethod(MethodHookParam param) throws Throwable {
                     super.afterHookedMethod(param);
-                    Drawable drawable = (Drawable) param.thisObject;
-                    Log.d(TAG,drawable+"");
-                    if(drawable instanceof BitmapDrawable){
-                        BitmapDrawable drawable1 = (BitmapDrawable) drawable;
-                        //BitmapListUtil.add(drawable1.getBitmap());
-                        DexposedBridge.findAndHookMethod(drawable.getClass(), "setBitmap", new XC_MethodHook() {
-                            @Override
-                            protected void afterHookedMethod(MethodHookParam param) throws Throwable {
-                                super.afterHookedMethod(param);
-                                BitmapListUtil.add((Bitmap) param.args[0]);
-                            }
-                        });
-                    }
+                    Object[] args =  param.args;
+                   if(args !=null && args.length>0){
+                       for (int i = 0; i < args.length; i++) {
+                           Log.d("drawablehook","arg:"+i+":"+args[i]);
+                           if(args[i] instanceof Bitmap){
+                               BitmapListUtil.add((Bitmap) args[i]);
+                           }
+                       }
+                   }
+
                 }
             });
         }catch (Throwable throwable){
