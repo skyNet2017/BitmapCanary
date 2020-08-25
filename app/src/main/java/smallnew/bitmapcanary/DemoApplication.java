@@ -25,12 +25,14 @@ public class DemoApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        ThreadSafeUtil.hookThread();
         DetectorFactory.addDetect(new DraweeViewDetector());
         ActivityDrawableWatcher.watchDrawable(this);
         Fresco.initialize(this,ImagePipelineConfig.newBuilder(this)
                 .setDownsampleEnabled(true)
                 .build());
         //hook();
+
     }
 
     private void hook() {

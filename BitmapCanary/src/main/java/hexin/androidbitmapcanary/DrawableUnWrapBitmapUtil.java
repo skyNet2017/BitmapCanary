@@ -6,8 +6,7 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.NinePatchDrawable;
 import android.graphics.drawable.StateListDrawable;
-import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
-import android.util.Log;
+import androidx.core.graphics.drawable.RoundedBitmapDrawable;
 
 import java.lang.reflect.Field;
 
