@@ -29,13 +29,14 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.2.0'
     implementation 'androidx.recyclerview:recyclerview:1.1.0'
     implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.47'
+    implementation 'me.weishu:epic:0.8.1-c'
 
 }
 
 apply plugin: 'maven'
 
 group = 'com.github.skyNet2017'
-version = '1.0.6.12'
+version = '1.1.0.1'
 
 uploadArchives {
     repositories {

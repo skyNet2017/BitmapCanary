@@ -32,7 +32,9 @@ public class BitmapListUtil {
         for (Map.Entry<Integer, WeakReference<Bitmap>> entry : map.entrySet()) {
             WeakReference<Bitmap> weakReference = entry.getValue();
             if(weakReference != null && weakReference.get() != null && !weakReference.get().isRecycled()){
-                bitmaps.add(weakReference.get());
+                if(!bitmaps.contains(weakReference.get())){
+                    bitmaps.add(weakReference.get());
+                }
             }
         }
         if(!bitmaps.isEmpty()){

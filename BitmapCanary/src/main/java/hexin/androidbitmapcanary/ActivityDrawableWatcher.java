@@ -18,6 +18,7 @@ public class ActivityDrawableWatcher {
     private static HashMap<Integer,DrawableDetectListener> drawableListenerRecord;
     public static void watchDrawable(Application application){
         new ActivityDrawableWatcher(application).startWatch();
+        BitmapHook.hookThread(application);
     }
     private static class DrawableDetectListener implements ViewTreeObserver.OnGlobalLayoutListener{
         private WeakReference<View> rootView;
